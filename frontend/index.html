@@ -12,12 +12,27 @@
   <body style="height: 100%">
     <!-- Tool bar section -->
     <div class="flex flex-col gap-2 bg-blue-100 h-full p-4">
-      <div class="bg-red-100 rounded-lg p-2 h-14 flex flex-row">
+      <div class="bg-red-100 rounded-lg p-2 h-14 flex flex-row justify-between px-6">
         <div
           class="bg-slate-100 h-8 w-8 mt-1 rounded-full cursor-pointer hover:bg-slate-200 hover:scale-110 duration-100 transition-all"
           id="highlightButton"
         >
           <i class="toolbar-icons" data-lucide="highlighter"></i>
+        </div>
+        <div>
+          <input
+            type="number"
+            id="docIdInput"
+            placeholder="Enter Document ID"
+            class="ml-4 p-1 border border-gray-300 rounded"
+          />
+          <!-- Submit button -->
+          <button
+            id="submitDocIdButton"
+            class="ml-2 bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-600 transition duration-200"
+          >
+            Submit
+          </button>
         </div>
       </div>
       <!-- Main editor section -->
@@ -25,10 +40,7 @@
         id="editor"
         contenteditable="true"
         class="border-2 border-blue-500 rounded-lg p-2 overflow-auto outline-none flex-1"
-        placeholder="Start editing here..."
-      >
-        <b>hola</b>Hello world
-      </div>
+      ></div>
     </div>
   </body>
   <script>

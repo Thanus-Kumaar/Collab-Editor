@@ -19,6 +19,9 @@ ws.onmessage = (message) => {
           doc_data.doc_content = editor.innerHTML;
           console.log(doc_data);
           break;
+        case "set_doc":
+          doc_data.doc_id = data.BODY.NEW_ID;
+          editor.innerHTML = data.BODY.CONTENT;
       }
       break;
     case "Data":
@@ -34,7 +37,7 @@ function sendDocument() {
       BODY: doc_data,
     })
   );
-  console.log("Sending document data")
+  console.log("Sending document data");
 }
 
 export { ws, sendDocument, doc_data };
