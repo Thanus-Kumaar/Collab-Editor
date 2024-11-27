@@ -3,6 +3,8 @@ let doc_data = {
   doc_content: "",
 };
 
+const editor = document.getElementById("editor");
+
 // websocket for connecting with the backend
 const ws = new WebSocket("ws://localhost:8080");
 
@@ -16,7 +18,12 @@ ws.onmessage = (message) => {
           doc_data.doc_id = parseInt(data.BODY);
           doc_data.doc_content = editor.innerHTML;
           console.log(doc_data);
+          break;
       }
+      break;
+    case "Data":
+      editor.innerHTML = data.BODY;
+      break;
   }
 };
 

@@ -1,4 +1,7 @@
 const ws = require("ws");
+const Semaphore = require("../utils/semaphore.js");
+
+const semaphore = new Semaphore(1);
 
 const createWebSocketServer = (server, documents) => {
   const wsServer = new ws.Server({ server });
@@ -21,7 +24,19 @@ const createWebSocketServer = (server, documents) => {
           break;
         case "Data":
           const {doc_id, doc_content} = data.BODY;
+          semaphore.lock();
           documents.set(doc_id, doc_content);
+          semaphore.unlock();
+          wsServer.clients.forEach((client)=>{
+            if (client.readyState === ws.OPEN) {
+              client.send(
+                JSON.stringify({
+                  TYPE: "Data",
+                  BODY: doc_content,
+                })
+              );
+            }
+          })
       }
     });
     wsObject.on("close", () => {
