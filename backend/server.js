@@ -11,9 +11,15 @@ app.get("/test", (req, res) => {
   return res.status(200).json({ MSG: "server is running" });
 });
 
+app.get("/documents",(req, res)=>{
+  return res.status(200).json(Object.fromEntries(documents));
+})
+
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
   console.log("Server running on port ", PORT);
 });
 
-const socketServer = createWebSocketServer(server);
+let documents = new Map()
+
+const socketServer = createWebSocketServer(server, documents);

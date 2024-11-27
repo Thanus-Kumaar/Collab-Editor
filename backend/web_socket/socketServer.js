@@ -19,6 +19,9 @@ const createWebSocketServer = (server, documents) => {
               );
           }
           break;
+        case "Data":
+          const {doc_id, doc_content} = data.BODY;
+          documents.set(doc_id, doc_content);
       }
     });
     wsObject.on("close", () => {
